@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Guidance System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f4ff;
+            color: #1e293b;
+        }
+
+        header {
+            background: #4338ca;
+            color: white;
+            padding: 30px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        nav {
+            background: #312e81;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px #00000012;
+        }
+
+        h2 {
+            color: #4338ca;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            background: #4338ca;
+            color: white;
+            border: none;
+            padding: 14px;
+            margin-top: 22px;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #312e81;
+        }
+
+        #results {
+            display: none;
+        }
+
+        .career {
+            background: #eef2ff;
+            padding: 18px;
+            margin-top: 15px;
+            border-left: 5px solid #4338ca;
+            border-radius: 7px;
+        }
+
+        .career h3 {
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .career p {
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        footer {
+            background: #312e81;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AI-Based Career Guidance System</h1>
+    <p>Discover your skills and find your career path</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#assessment">Assessment</a>
+    <a href="#about">About</a>
+</nav>
+
+<div class="container">
+
+    <section class="card" id="home">
+        <h2>Welcome!</h2>
+        <p>
+            Find career options that match your interests, skills,
+            educational background, and favorite subjects.
+            Complete the assessment below to explore suitable careers.
+        </p>
+    </section>
+
+    <section class="card" id="assessment">
+        <h2>Career Assessment Form</h2>
+
+        <form id="careerForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name"
+                   placeholder="Enter your name" required>
+
+            <label for="education">Education Level</label>
+            <select id="education" required>
+                <option value="">Select education</option>
+                <option>10th Standard</option>
+                <option>12th Standard</option>
+                <option>Diploma</option>
+                <option>Undergraduate</option>
+                <option>Postgraduate</option>
+            </select>
+
+            <label for="interest">Area of Interest</label>
+            <select id="interest" required>
+                <option value="">Select your interest</option>
+                <option value="technology">Technology and Computers</option>
+                <option value="medical">Medical and Healthcare</option>
+                <option value="business">Business and Management</option>
+                <option value="creative">Art and Creativity</option>
+                <option value="science">Science and Research</option>
+                <option value="engineering">Engineering</option>
+                <option value="teaching">Teaching</option>
+                <option value="government">Government Services</option>
+            </select>
+
+            <label for="subject">Favorite Subject</label>
+            <select id="subject" required>
+                <option value="">Select subject</option>
+                <option value="computer">Computer Science</option>
+                <option value="math">Mathematics</option>
+                <option value="biology">Biology</option>
+                <option value="physics">Physics</option>
+                <option value="commerce">Commerce</option>
+                <option value="arts">Arts and Design</option>
+                <option value="social">Social Studies</option>
+            </select>
+
+            <label for="skills">Your Skills</label>
+            <textarea id="skills"
+                placeholder="Example: coding, communication, creativity"
+                required></textarea>
+
+            <label for="style">Preferred Work Style</label>
+            <select id="style" required>
+                <option value="">Select work style</option>
+                <option value="analytical">Solving Problems</option>
+                <option value="people">Helping People</option>
+                <option value="creative">Creative Work</option>
+                <option value="practical">Practical Work</option>
+                <option value="leadership">Leading Teams</option>
+            </select>
+
+            <button type="submit">Find My Career</button>
+        </form>
+    </section>
+
+    <section class="card" id="results" aria-live="polite">
+        <h2 id="resultTitle">Your Career Recommendations</h2>
+        <p id="resultDescription"></p>
+        <div id="careerResults"></div>
+
+        <button type="button" id="reset">Try Again</button>
+
+        <p style="margin-top:15px;color:#64748b;font-size:13px">
+            These suggestions use basic rule-based matching, not a trained
+            AI model. Research qualifications and consult a career counselor
+            before making important decisions.
+        </p>
+    </section>
+
+    <section class="card" id="about">
+        <h2>About the System</h2>
+        <p>
+            This project demonstrates how a career guidance system can
+            recommend possible career paths using a student's interests,
+            skills, education, and preferred work style. A machine learning
+            model or AI API can be integrated for more advanced guidance.
+        </p>
+    </section>
+
+</div>
+
+<footer>
+    <p>AI-Based Career Guidance System | 2026</p>
+</footer>
+
+<script>
+    const careers = [
+        {
+            name: "Software Developer",
+            interest: "technology",
+            subjects: ["computer", "math"],
+            style: "analytical",
+            skills: ["coding", "programming", "problem-solving"],
+            description: "Develop websites, mobile apps, and software.",
+            course: "B.Tech CSE, BCA, B.Sc. Computer Science, or equivalent training."
+        },
+        {
+            name: "Data Analyst",
+            interest: "technology",
+            subjects: ["math", "computer", "commerce"],
+            style: "analytical",
+            skills: ["analysis", "excel", "statistics"],
+            description: "Analyze information and identify useful patterns.",
+            course: "Data Analytics, Statistics, Mathematics, or Computer Science."
+        },
+        {
+            name: "Doctor",
+            interest: "medical",
+            subjects: ["biology"],
+            style: "people",
+            skills: ["communication", "helping", "patience"],
+            description: "Diagnose illnesses and help patients maintain health.",
+            course: "MBBS or another appropriate healthcare qualification."
+        },
+        {
+            name: "Business Manager",
+            interest: "business",
+            subjects: ["commerce", "math"],
+            style: "leadership",
+            skills: ["leadership", "management", "communication"],
+            description: "Manage teams, projects, and business operations.",
+            course: "BBA, B.Com, or a relevant management qualification."
+        },
+        {
+            name: "Graphic Designer",
+            interest: "creative",
+            subjects: ["arts"],
+            style: "creative",
+            skills: ["design", "drawing", "creativity"],
+            description: "Create visual content, logos, and digital designs.",
+            course: "Graphic Design, Visual Communication, or a design course."
+        },
+        {
+            name: "Research Scientist",
+            interest: "science",
+            subjects: ["biology", "physics", "math"],
+            style: "analytical",
+            skills: ["research", "analysis", "experiments"],
+            description: "Conduct experiments and investigate scientific questions.",
+            course: "A relevant science degree; advanced roles may require postgraduate study."
+        },
+        {
+            name: "Mechanical Engineer",
+            interest: "engineering",
+            subjects: ["physics", "math"],
+            style: "practical",
+            skills: ["machines", "design", "problem-solving"],
+            description: "Design and improve machines and mechanical systems.",
+            course: "Mechanical Engineering or an appropriate technical qualification."
+        },
+        {
+            name: "Teacher",
+            interest: "teaching",
+            subjects: ["math", "biology", "arts", "social"],
+            style: "people",
+            skills: ["communication", "patience", "explaining"],
+            description: "Teach and support students in their learning.",
+            course: "Subject-specific education and required teaching qualifications."
+        },
+        {
+            name: "Civil Services Professional",
+            interest: "government",
+            subjects: ["social", "arts"],
+            style: "leadership",
+            skills: ["leadership", "communication", "planning"],
+            description: "Work in public administration and government services.",
+            course: "Meet the relevant eligibility requirements and prepare for competitive examinations."
+        }
+    ];
+
+    const form = document.getElementById("careerForm");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const interest = document.getElementById("interest").value;
+        const subject = document.getElementById("subject").value;
+        const style = document.getElementById("style").value;
+        const skills = document.getElementById("skills")
+            .value.toLowerCase()
+            .split(/[,;\n]+/)
+            .map(skill => skill.trim())
+            .filter(Boolean);
+
+        const education = document.getElementById("education").value;
+
+        const ranked = careers.map(career => {
+            let score = 0;
+
+            if (career.interest === interest) score += 5;
+            if (career.subjects.includes(subject)) score += 3;
+            if (career.style === style) score += 2;
+
+            const matchedSkills = career.skills.filter(skill =>
+                skills.some(userSkill => userSkill.includes(skill))
+            );
+
+            score += Math.min(matchedSkills.length * 2, 4);
+
+            return {
+                ...career,
+                score,
+                matchedSkills
+            };
+        }).sort((a, b) => b.score - a.score);
+
+        const topCareers = ranked.slice(0, 3);
+        const highestScore = Math.max(topCareers[0].score, 1);
+
+        document.getElementById("resultTitle").textContent =
+            "Career Recommendations for " + name;
+
+        document.getElementById("resultDescription").textContent =
+            "Education: " + education +
+            ". Based on your answers, explore these career options:";
+
+        const output = document.getElementById("careerResults");
+        output.replaceChildren();
+
+        topCareers.forEach((career, index) => {
+            const article = document.createElement("div");
+            article.className = "career";
+
+            const heading = document.createElement("h3");
+            heading.textContent = (index + 1) + ". " + career.name;
+
+            const match = document.createElement("p");
+            match.innerHTML = "<strong>Relative match score: </strong>" +
+                Math.round(career.score / highestScore * 100) + "%";
+
+            const description = document.createElement("p");
+            description.textContent = career.description;
+
+            const course = document.createElement("p");
+            course.textContent = "Suggested pathway: " + career.course;
+
+            article.append(heading, match, description, course);
+
+            if (career.matchedSkills.length) {
+                const matched = document.createElement("p");
+                matched.textContent =
+                    "Matching skills: " + career.matchedSkills.join(", ");
+                article.appendChild(matched);
+            }
+
+            output.appendChild(article);
+        });
+
+        results.style.display = "block";
+        results.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("reset").addEventListener("click", function() {
+        form.reset();
+        results.style.display = "none";
+        document.getElementById("careerResults").replaceChildren();
+
+        document.getElementById("home").scrollIntoView({
+            behavior: "smooth"
+        });
+    });
+</script>
+
+</body>
+</html>
